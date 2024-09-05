@@ -157,3 +157,16 @@ def remove_outliers_IQR_meth(data):
 def remove_outliers_zscore(data, threshold=3):
     z_scores = np.abs((data - np.mean(data)) / np.std(data))
     return data[z_scores < threshold]
+
+def filter_dictionary_by_percentage(dictionary, end_prcntg, strt_prcntg = 0):
+    '''
+    Filters a dictionary by a given percentage range.
+    '''
+    total_items = len(dictionary)
+    
+    start_index = int(total_items * (strt_prcntg / 100))
+    end_index = int(total_items * (end_prcntg / 100))
+    
+    items = list(dictionary.items())
+    
+    return dict(items[start_index:end_index])
