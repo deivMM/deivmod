@@ -170,3 +170,11 @@ def filter_dictionary_by_percentage(dictionary, end_prcntg, strt_prcntg = 0):
     items = list(dictionary.items())
     
     return dict(items[start_index:end_index])
+
+def create_gif(image_path = '.', output_path = 'output_gif.gif', duration=0.5, image_ext= '.png', remove_images=False):
+    image_files = [f'{image_path}/{f}' for f in os.listdir(image_path) if f.endswith(image_ext)]
+    if image_files:
+        images = [Image.open(img_path).convert('RGB') for img_path in image_files]
+        images[0].save(output_path,save_all=True,append_images=images[1:],duration=int(duration*1000),loop=0)
+        if remove_images: [os.remove(img_path) for img_path in image_files]
+    else: print('no hay ninguna imagen en el image_path indicado')
